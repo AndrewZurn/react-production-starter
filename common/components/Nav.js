@@ -5,13 +5,11 @@ import { StyleSheet, css } from 'aphrodite'
 
 const Nav = () => (
   <div>
-    <IndexLink to='/' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>
-      Home
-    </IndexLink>
-    <Link to='/posts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}> Example Feed
-    </Link>
-    <a href='https://github.com/jaredpalmer/react-production-starter' className={css(styles.link)} target='_blank'>GitHub</a>
-    <a href='https://twitter.com/jaredpalmer' className={css(styles.link)} target='_blank'>Twitter</a>
+    <IndexLink to='/' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Home</IndexLink>
+    <Link to='/posts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Example Feed</Link>
+    <Link to='/users' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Users</Link>
+    <Link to='/workouts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Workouts</Link>
+    <Link to='/scheduled-workouts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Scheduled Workouts</Link>
   </div>
 )
 
