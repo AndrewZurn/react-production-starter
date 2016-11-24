@@ -9,7 +9,7 @@ const initialState = {
 };
 
 // REDUCERS
-export default function user (state = initialState) {
+export default function user (state = initialState, action) {
   switch (action.type) {
 
     case types.GET_USER_BY_ID_REQUEST:
@@ -65,7 +65,7 @@ function defaultLoadingState(state) {
   };
 }
 
-function defaultSuccessState(result) {
+function defaultSuccessState(state, result) {
   return {
     ...state,
     ...result,

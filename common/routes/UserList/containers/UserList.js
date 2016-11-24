@@ -2,6 +2,7 @@ import { provideHooks } from 'redial'
 import React, { PropTypes } from 'react'
 import { loadUsers } from '../actions'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router';
 import UserListItem from '../components/UserListItem'
 import { StyleSheet, css } from 'aphrodite'
 import Helmet from 'react-helmet'
@@ -10,16 +11,25 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const redial = {
   fetch: ({ dispatch }) => dispatch(loadUsers())
-}
+};
 
 const mapStateToProps = state => ({
-  users: fusionUsers(state)
-})
+  users: fusionUsers(state),
+});
 
 const UserListPage = ({ users }) => (
   <div className={css(styles.root)}>
     <Helmet title='Users' />
-    <RaisedButton label="Create User" primary={true}/>
+    <RaisedButton
+      label="Create User"
+      className={css(styles.createButton)}
+      primary={true}
+      onTouchTap={ () => {
+        console.log('going to create new user page');
+        browserHistory.push('/users/new-user');
+      }}
+    />
+
     {users.loading &&
       <div>
         <h2 className={css(styles.title)}>Loading....</h2>
@@ -33,7 +43,7 @@ const UserListPage = ({ users }) => (
 
 UserListPage.PropTypes = {
   users: PropTypes.array.isRequired
-}
+};
 
 const styles = StyleSheet.create({
   root: {
@@ -45,8 +55,8 @@ const styles = StyleSheet.create({
     color: '#b7b7b7'
   },
   createButton: {
-    marginBottom: 10,
-    float: 'right'
+    position: 'relative',
+    left: 370,
   }
 })
 
