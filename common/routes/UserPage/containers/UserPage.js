@@ -23,7 +23,7 @@ const redial = {
 const mapStateToProps = state => selectedUser(state)
 
 export class UserPage extends React.Component {
-  constructor(props: any, context) {
+  constructor(props, context) {
     super(props, context);
     this.state = {
       firstName: '',
