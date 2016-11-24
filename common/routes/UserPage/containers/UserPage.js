@@ -78,10 +78,32 @@ export class UserPage extends React.Component {
     }
   }
 
+  _getUserToUpdate() {
+    return {
+      email: this.state.email,
+      user_metadata: {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        programLevel: this.state.programLevel
+      }
+    }
+  }
+
   render() {
     const {currentUser, remainingWorkouts, loading, error, dispatch} = this.props;
+
+    if (currentUser && this.state.firstName.length == 0) {
+      this.setState({
+        firstName: currentUser.user_metadata.firstName,
+        lastName: currentUser.user_metadata.lastName,
+        email: currentUser.email,
+        programLevel: currentUser.user_metadata.programLevel
+      })
+    }
+
     if (!error) {
-      let title = currentUser ? currentUser.email : 'Create New User';
+      let title = currentUser ? 'Update User' : 'Create New User';
+      let saveUserLabel = currentUser ? 'Update User' : 'Create User';
       return (
         <div>
           <Helmet title={title}/>
@@ -135,7 +157,7 @@ export class UserPage extends React.Component {
               }}
             />
             <RaisedButton
-              label="Create User"
+              label={saveUserLabel}
               className={css(styles.createButton)}
               primary={true}
               onTouchTap={ () => {
@@ -145,7 +167,7 @@ export class UserPage extends React.Component {
                   console.log(`new user - first: ${this.state.firstName} last: ${this.state.lastName} ` +
                     `email: ${this.state.email} programLevel: ${this.state.programLevel}`)
                   if (currentUser) { // editing a current user
-                    dispatch(updateUser(this._getUserToSave(), currentUser.user_id));
+                    dispatch(updateUser(this._getUserToUpdate(), currentUser.user_id, () => browserHistory.push('/users')));
                   } else { // new user
                     dispatch(createUser(this._getUserToSave(), () => browserHistory.push('/users')));
                   }

@@ -43,13 +43,14 @@ export function createUser (user, onSuccess) {
   }
 }
 
-export function updateUser (user, id) {
+export function updateUser (user, id, onSuccess) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.UPDATE_USER_REQUEST })
     return axios.patch(`${constants.Auth0ApiUrl}/users/${id}`, user, {headers: {'Authorization': `Bearer ${constants.Auth0JWT}`}})
       .then(res => {
         dispatch({type: constants.UPDATE_USER_SUCCESS, payload: res.data})
       })
+      .then(onSuccess())
       .catch(error => {
         console.error(`Error in reducer that handles ${constants.UPDATE_USER_FAILURE}: `, error)
         dispatch({type: constants.UPDATE_USER_FAILURE, error})
