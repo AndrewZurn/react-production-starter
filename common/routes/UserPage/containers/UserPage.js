@@ -94,7 +94,8 @@ export class UserPage extends React.Component {
             <h2 className={css(styles.title)}>{title}</h2>
 
             <div className={css(styles.errorStates)}>
-              {this.state.errors.map(e => <strong key={`error-${e}`} className={css(styles.errorMessage)}>{e}<br/></strong>)}
+              {this.state.errors.map(e => <strong key={`error-${e}`}
+                                                  className={css(styles.errorMessage)}>{e}<br/></strong>)}
             </div>
 
             <TextField
@@ -142,11 +143,11 @@ export class UserPage extends React.Component {
                 if (!this._validateForm()) {
                   console.log('saving new user');
                   console.log(`new user - first: ${this.state.firstName} last: ${this.state.lastName} ` +
-                   `email: ${this.state.email} programLevel: ${this.state.programLevel}`)
+                    `email: ${this.state.email} programLevel: ${this.state.programLevel}`)
                   if (currentUser) { // editing a current user
                     dispatch(updateUser(this._getUserToSave(), currentUser.user_id));
                   } else { // new user
-                    dispatch(createUser(this._getUserToSave()));
+                    dispatch(createUser(this._getUserToSave(), () => browserHistory.push('/users')));
                   }
                 }
               }}

@@ -1,5 +1,4 @@
 import * as constants from '../../constants'
-import {browserHistory} from "react-router";
 
 export function loadUser (slug) {
   return (dispatch, getState, { axios }) => {
@@ -29,14 +28,14 @@ export function getUserRemainingWorkouts (id) {
   }
 }
 
-export function createUser (user) {
+export function createUser (user, onSuccess) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.CREATE_USER_REQUEST })
     return axios.post(`${constants.Auth0ApiUrl}/users`, user, {headers: {'Authorization': `Bearer ${constants.Auth0JWT}`}})
       .then(res => {
         dispatch({type: constants.CREATE_USER_SUCCESS, payload: res.data})
       })
-      .then(res => browserHistory.push('/users'))
+      .then(onSuccess())
       .catch(error => {
         console.error(`Error in reducer that handles ${constants.CREATE_USER_FAILURE}: `, error)
         dispatch({type: constants.CREATE_USER_FAILURE, error})
