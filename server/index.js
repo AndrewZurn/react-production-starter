@@ -56,6 +56,8 @@ export const createServer = (config) => {
     app.use(webpackHotMiddleware(compiler, { log: console.log }))
   }
 
+  app.use(express.static('public'))
+
   app.get('*', (req, res) => {
     const store = configureStore({
       sourceRequest: {
@@ -152,10 +154,10 @@ export const createServer = (config) => {
               </head>
               <body>
                 <div id="root">${data.html}</div>
-                <script>window.renderedClassNames = ${JSON.stringify(data.css.renderedClassNames)};</script>
-                <script>window.INITIAL_STATE = ${JSON.stringify(initialState)};</script>
-                <script src="${ __PROD__ ? assets.vendor.js : '/vendor.js' }"></script>
-                <script async src="${ __PROD__ ? assets.main.js : '/main.js' }" ></script>
+                <script type="text/javascript">window.renderedClassNames = ${JSON.stringify(data.css.renderedClassNames)};</script>
+                <script type="text/javascript">window.INITIAL_STATE = ${JSON.stringify(initialState)};</script>
+                <script type="text/javascript" src="${ __PROD__ ? assets.vendor.js : '/vendor.js' }"></script>
+                <script type="text/javascript" async src="${ __PROD__ ? assets.main.js : '/main.js' }"></script>
               </body>
             </html>
           `)

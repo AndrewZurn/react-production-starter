@@ -1,9 +1,15 @@
 import * as constants from '../../constants'
 
+const headers = {
+  'Authorization': `Bearer ${constants.Auth0JWT}`,
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+};
+
 export function loadUser (slug) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.GET_USER_BY_ID_REQUEST });
-    return axios.get(`${constants.Auth0ApiUrl}/users/${slug}`, {headers: {'Authorization': `Bearer ${constants.Auth0JWT}`}})
+    return axios.get(`${constants.Auth0ApiUrl}/users/${slug}`, {headers: headers})
       .then(res => {
         dispatch({type: constants.GET_USER_BY_ID_SUCCESS, payload: res.data})
       })
@@ -31,7 +37,7 @@ export function getUserRemainingWorkouts (id) {
 export function createUser (user, onSuccess) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.CREATE_USER_REQUEST });
-    return axios.post(`${constants.Auth0ApiUrl}/users`, user, {headers: {'Authorization': `Bearer ${constants.Auth0JWT}`}})
+    return axios.post(`${constants.Auth0ApiUrl}/users`, user,  {headers: headers})
       .then(res => {
         dispatch({type: constants.CREATE_USER_SUCCESS, payload: res.data})
       })
@@ -46,7 +52,7 @@ export function createUser (user, onSuccess) {
 export function updateUser (user, id, onSuccess) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.UPDATE_USER_REQUEST });
-    return axios.patch(`${constants.Auth0ApiUrl}/users/${id}`, user, {headers: {'Authorization': `Bearer ${constants.Auth0JWT}`}})
+    return axios.patch(`${constants.Auth0ApiUrl}/users/${id}`, user,  {headers: headers})
       .then(res => {
         dispatch({type: constants.UPDATE_USER_SUCCESS, payload: res.data})
       })
