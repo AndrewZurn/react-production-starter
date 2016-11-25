@@ -82,16 +82,21 @@ export class UserPage extends React.Component {
     }
   }
 
-  _getUserToUpdate() {
-    return {
+  _getUserToUpdate(currentUser) {
+    let user = {
       blocked: this.state.blocked,
-      email: this.state.email,
       user_metadata: {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         programLevel: this.state.programLevel
       }
+    };
+
+    if (this.state.email !== currentUser.email) {
+      user.email = this.state.email;
     }
+
+    return user;
   }
 
   render() {
@@ -196,7 +201,7 @@ export class UserPage extends React.Component {
                   console.log(`new user - first: ${this.state.firstName} last: ${this.state.lastName} ` +
                     `email: ${this.state.email} programLevel: ${this.state.programLevel}`)
                   if (currentUser) { // editing a current user
-                    dispatch(updateUser(this._getUserToUpdate(), currentUser.user_id, () => browserHistory.push('/users')));
+                    dispatch(updateUser(this._getUserToUpdate(currentUser), currentUser.user_id, () => browserHistory.push('/users')));
                   } else { // new user
                     dispatch(createUser(this._getUserToSave(), () => browserHistory.push('/users')));
                   }
