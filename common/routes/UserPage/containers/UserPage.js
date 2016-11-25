@@ -6,6 +6,7 @@ import {StyleSheet, css} from "aphrodite";
 import Helmet from "react-helmet";
 import NotFound from "../../../components/NotFound";
 import {selectedUser} from "../reducer";
+import Checkbox from 'material-ui/Checkbox';
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 import {browserHistory} from "react-router";
@@ -26,10 +27,12 @@ export class UserPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      hasLoadedUser: false,
       firstName: '',
       lastName: '',
       email: '',
       programLevel: '',
+      blocked: false,
       errors: []
     };
   }
@@ -68,6 +71,7 @@ export class UserPage extends React.Component {
   _getUserToSave() {
     return {
       connection: "Username-Password-Authentication",
+      blocked: this.state.blocked,
       email: this.state.email,
       password: 'PasswordToReset',
       user_metadata: {
@@ -80,6 +84,7 @@ export class UserPage extends React.Component {
 
   _getUserToUpdate() {
     return {
+      blocked: this.state.blocked,
       email: this.state.email,
       user_metadata: {
         firstName: this.state.firstName,
@@ -92,18 +97,37 @@ export class UserPage extends React.Component {
   render() {
     const {currentUser, remainingWorkouts, loading, error, dispatch} = this.props;
 
-    if (currentUser && this.state.firstName.length == 0) {
+    if (currentUser && !this.state.hasLoadedUser) { // load the users state once
       this.setState({
+        hasLoadedUser: true,
         firstName: currentUser.user_metadata.firstName,
         lastName: currentUser.user_metadata.lastName,
         email: currentUser.email,
-        programLevel: currentUser.user_metadata.programLevel
+        programLevel: currentUser.user_metadata.programLevel,
+        blocked: currentUser.blocked
       })
     }
 
     if (!error) {
       let title = currentUser ? 'Update User' : 'Create New User';
       let saveUserLabel = currentUser ? 'Update User' : 'Create User';
+
+      let blockUserButton = null;
+      if (currentUser) {
+        blockUserButton = (
+          <Checkbox
+            checked={ this.state.blocked }
+            label="Block User Logins"
+            onCheck={(e, isChecked) => {
+              this.setState({...this.state, blocked: isChecked})
+            }}
+          />
+        );
+      }
+
+      let blockedReminderText = <div className={css(styles.warning)}
+                                     hidden={!this.state.blocked}>Warning: User will NOT be allowed to login.</div>;
+
       return (
         <div>
           <Helmet title={title}/>
@@ -116,9 +140,12 @@ export class UserPage extends React.Component {
             <h2 className={css(styles.title)}>{title}</h2>
 
             <div className={css(styles.errorStates)}>
-              {this.state.errors.map(e => <strong key={`error-${e}`}
-                                                  className={css(styles.errorMessage)}>{e}<br/></strong>)}
+              {this.state.errors.map(e =>
+                <strong key={`error-${e}`}
+                        className={css(styles.errorMessage)}>{e}<br/></strong>)}
             </div>
+
+            {blockedReminderText}
 
             <TextField
               id={'create_user_first_name'}
@@ -148,6 +175,7 @@ export class UserPage extends React.Component {
               onChange={(event) => this.setState({...this.state, programLevel: event.target.value.toUpperCase()})}
               fullWidth={ true }
             />
+            {blockUserButton}
             <RaisedButton
               label="Cancel"
               className={css(styles.createButton)}
@@ -217,7 +245,13 @@ const styles = StyleSheet.create({
   },
   errorStates: {
     marginTop: 15
+  },
+  warning: {
+    margin: '10 0',
+    padding: 12,
+    color: '#9F6000',
+    backgroundColor: '#FEEFB3'
   }
-})
+});
 
 export default provideHooks(redial)(connect(mapStateToProps)(UserPage))
