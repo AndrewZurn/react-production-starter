@@ -6,7 +6,6 @@ import { StyleSheet, css } from 'aphrodite'
 const Nav = () => (
   <div>
     <IndexLink to='/' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Home</IndexLink>
-    <Link to='/posts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Example Feed</Link>
     <Link to='/users' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Users</Link>
     <Link to='/workouts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Workouts</Link>
     <Link to='/scheduled-workouts' className={css(styles.link)} activeClassName={css(styles.link, styles.activeLink)}>Scheduled Workouts</Link>

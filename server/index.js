@@ -56,10 +56,6 @@ export const createServer = (config) => {
     app.use(webpackHotMiddleware(compiler, { log: console.log }))
   }
 
-  app.use(express.static('public'))
-  app.use('/api/v0/posts', require('./api/posts'))
-
-
   app.get('*', (req, res) => {
     const store = configureStore({
       sourceRequest: {
