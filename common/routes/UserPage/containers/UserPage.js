@@ -1,7 +1,7 @@
 import {provideHooks} from "redial";
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
-import {loadUser, createUser, updateUser} from "../actions";
+import {loadUser, createUser, updateUser, resetState} from "../actions";
 import {StyleSheet, css} from "aphrodite";
 import Helmet from "react-helmet";
 import NotFound from "../../../components/NotFound";
@@ -153,6 +153,7 @@ export class UserPage extends React.Component {
               className={css(styles.createButton)}
               primary={true}
               onTouchTap={ () => {
+                dispatch(resetState());
                 browserHistory.push('/users');
               }}
             />

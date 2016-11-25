@@ -1,4 +1,4 @@
-import * as types from '../../constants'
+import * as constants from '../../constants'
 
 // Initial state
 const initialState = {
@@ -12,41 +12,44 @@ const initialState = {
 export default function user (state = initialState, action) {
   switch (action.type) {
 
-    case types.GET_USER_BY_ID_REQUEST:
+    case constants.GET_USER_BY_ID_REQUEST:
       return defaultLoadingState(state);
 
-    case types.GET_USER_BY_ID_SUCCESS:
+    case constants.GET_USER_BY_ID_SUCCESS:
       return defaultSuccessState(state, {currentUser: action.payload});
 
-    case types.GET_USER_BY_ID_FAILURE:
+    case constants.GET_USER_BY_ID_FAILURE:
       return defaultErrorState(state, action);
 
-    case types.GET_USER_REMAINING_WORKOUTS_REQUEST:
+    case constants.GET_USER_REMAINING_WORKOUTS_REQUEST:
       return defaultLoadingState(state);
 
-    case types.GET_USER_REMAINING_WORKOUTS_SUCCESS:
+    case constants.GET_USER_REMAINING_WORKOUTS_SUCCESS:
       return defaultSuccessState(state, {remainingWorkouts: action.payload});
 
-    case types.GET_USER_REMAINING_WORKOUTS_FAILURE:
+    case constants.GET_USER_REMAINING_WORKOUTS_FAILURE:
       return defaultErrorState(state, action);
 
-    case types.CREATE_USER_REQUEST:
+    case constants.CREATE_USER_REQUEST:
       return defaultLoadingState(state);
 
-    case types.CREATE_USER_SUCCESS:
+    case constants.CREATE_USER_SUCCESS:
       return defaultSuccessState(state, {currentUser: null});
 
-    case types.CREATE_USER_FAILURE:
+    case constants.CREATE_USER_FAILURE:
       return defaultErrorState(state, action);
 
-    case types.UPDATE_USER_REQUEST:
+    case constants.UPDATE_USER_REQUEST:
       return defaultLoadingState(state);
 
-    case types.UPDATE_USER_SUCCESS:
+    case constants.UPDATE_USER_SUCCESS:
       return defaultSuccessState(state, {currentUser: null});
 
-    case types.UPDATE_USER_FAILURE:
+    case constants.UPDATE_USER_FAILURE:
       return defaultErrorState(state, action);
+
+    case constants.RESET_USER_STATE:
+      return initialState;
 
     // TODO: FUSION API SPECIFIC UPDATE
 
