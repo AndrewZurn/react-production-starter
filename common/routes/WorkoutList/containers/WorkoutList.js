@@ -49,7 +49,7 @@ WorkoutListPage.PropTypes = {
 const localStyles = StyleSheet.create({
   createButton: {
     position: 'relative',
-    left: 370,
+    left: 335,
   }
 })
 
