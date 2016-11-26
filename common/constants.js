@@ -1,7 +1,7 @@
 // TODO: Remove me... fast
 export const Auth0JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJGWW5uSFdwSk1jemVNYkJwbWllaUhXTmQySVBhcXFTYyIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiLCJ1cGRhdGUiLCJjcmVhdGUiXX19LCJpYXQiOjE0NzkwMTA0NTMsImp0aSI6ImQ1NWI1OWI2NzljZDcwOGY4YzJiNGUzYjRkNzA4ODYzIn0.mFCO9dg1_UHptLuEr2b8BJsoVGPxm_jvl3Jmwp1TgxY'
 export const Auth0ApiUrl = 'https://spac.auth0.com/api/v2'
-export const FusionApiUrl = 'http://spac-fusion-api.us-west-2.elasticbeanstalk.com'
+export const FusionApiUrl = 'https://w9fyq1dyrl.execute-api.us-west-2.amazonaws.com/FusionApiProd'
 
 // Posts
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST'
