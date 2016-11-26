@@ -30,7 +30,7 @@ describe('API', () => {
   it('should list ONE post on api/v0/posts/:slug GET', (done) => {
     const post = {
       id: '128sd043hd',
-      title: 'Cloth Talk Part I',
+      listItemTitle: 'Cloth Talk Part I',
       slug: 'cloth-talk-part-i',
       content: 'Lorem Khaled Ipsum is a major key to success. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! We don’t see them, we will never see them. Find peace, life is like a water fall, you’ve gotta flow. Wraith talk. You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh. A major key, never panic. Don’t panic, when it gets crazy and rough, don’t panic, stay calm.'
     }

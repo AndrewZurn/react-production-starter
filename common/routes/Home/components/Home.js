@@ -18,7 +18,7 @@ const Home = (props) => (
       file for the client to download. This project aims to demonstrate some possible solutions.
     </p>
     <h2 className={css(styles.header)}>Under the Hood</h2>
-    <ul className={css(styles.list)}>
+    <ul className={css(styles.listItem)}>
       {data.map((item, i) => (
         <li key={i}>
           <h3><a className={css(styles.link)} href={item.link} target='_blank'>{item.resource}</a></h3>
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     margin: '0 0 1.5rem',
     color: '#555'
   },
-  list: {
+  listItem: {
     fontSize: '1rem',
-    listStyle: 'none',
+    listItem: 'none',
     padding: 0
   },
   link: {

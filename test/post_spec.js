@@ -10,7 +10,7 @@ describe('Post Reducer', () => {
     lastFetched: null,
     isLoading: false,
     error: null,
-    title: '',
+    listItemTitle: '',
     content: ''
   }
 
@@ -28,7 +28,7 @@ describe('Post Reducer', () => {
       lastFetched: null,
       isLoading: true,
       error: null,
-      title: '',
+      listItemTitle: '',
       content: ''
     }
 
@@ -39,7 +39,7 @@ describe('Post Reducer', () => {
   it('should handle LOAD_POST_SUCCESS', () => {
     const post = {
       id: '128sd043hd',
-      title: 'Cloth Talk Part I',
+      listItemTitle: 'Cloth Talk Part I',
       slug: 'cloth-talk-part-i',
       content: 'Khaled Ipsum is a major key to success.'
     }
@@ -56,7 +56,7 @@ describe('Post Reducer', () => {
       lastFetched: currentTime,
       isLoading: false,
       error: null,
-      title: 'Cloth Talk Part I',
+      listItemTitle: 'Cloth Talk Part I',
       content: 'Khaled Ipsum is a major key to success.'
     }
 
@@ -76,7 +76,7 @@ describe('Post Reducer', () => {
       lastFetched: null,
       isLoading: false,
       error: error,
-      title: '',
+      listItemTitle: '',
       content: ''
     }
 

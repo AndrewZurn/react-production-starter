@@ -2,15 +2,15 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import axios from 'axios'
 import createReducer from './createReducer'
-import createLogger from 'redux-logger';
-import {Map} from 'immutable';
+import createLogger from 'redux-logger'
+import {Map} from 'immutable'
 
 // log actions in development mode
 const loggerMiddleware = createLogger({
   collapsed: true,
 
   // only log in development mode
-  predicate: () => process.env.NODE_ENV !== "production",
+  predicate: () => process.env.NODE_ENV !== 'production',
 
   // transform immutable state to plain objects
   stateTransformer: state => Map({...state}).toJS(),
@@ -20,7 +20,7 @@ const loggerMiddleware = createLogger({
     action && action.payload && action.payload.toJS
       ? {...action, payload: action.payload.toJS()}
       : action
-});
+})
 
 export function configureStore (initialState) {
   let store = createStore(createReducer(), initialState, compose(

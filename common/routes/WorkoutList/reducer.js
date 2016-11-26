@@ -3,22 +3,22 @@ import {Map} from 'immutable'
 
 // Initial state
 const initialState = Map({
-  users: [],
+  workouts: [],
   loading: false,
   error: null
 })
 
 // REDUCERS
-export default function users (state = initialState, action) {
+export default function workouts (state = initialState, action) {
   switch (action.type) {
 
-    case types.GET_USERS_REQUEST:
+    case types.GET_WORKOUTS_REQUEST:
       return defaultLoadingState(state)
 
-    case types.GET_USERS_SUCCESS:
-      return defaultSuccessState(state, {users: action.payload})
+    case types.GET_WORKOUTS_SUCCESS:
+      return defaultSuccessState(state, {workouts: action.payload})
 
-    case types.GET_USERS_FAILURE:
+    case types.GET_WORKOUTS_FAILURE:
       return defaultErrorState(state, action)
 
     default:
@@ -26,7 +26,7 @@ export default function users (state = initialState, action) {
   }
 }
 
-export const fusionUsers = state => state.users
+export const fusionWorkouts = state => state.workouts
 
 function defaultLoadingState (state) {
   return {

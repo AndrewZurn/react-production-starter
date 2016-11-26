@@ -4,7 +4,7 @@ const headers = {
   'Authorization': `Bearer ${Auth0JWT}`,
   'Content-Type': 'application/json',
   'Accept': 'application/json'
-};
+}
 
 export function loadUsers () {
   return (dispatch, getState, { axios }) => {
