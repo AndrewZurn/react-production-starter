@@ -1,17 +1,18 @@
-import { provideHooks } from 'redial'
-import React, { PropTypes } from 'react'
-import { loadUsers } from '../actions'
-import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import UserListItem from '../components/UserListItem'
-import { StyleSheet, css } from 'aphrodite'
-import Helmet from 'react-helmet'
-import { fusionUsers } from '../reducer'
-import RaisedButton from 'material-ui/RaisedButton'
-import { styles } from '../../../style'
+import {provideHooks} from "redial";
+import React, {PropTypes} from "react";
+import {loadUsers} from "../actions";
+import {connect} from "react-redux";
+import {browserHistory} from "react-router";
+import UserListItem from "../components/UserListItem";
+import {StyleSheet, css} from "aphrodite";
+import Helmet from "react-helmet";
+import {fusionUsers} from "../reducer";
+import RaisedButton from "material-ui/RaisedButton";
+import CircularProgress from "material-ui/CircularProgress";
+import {styles} from "../../../style";
 
 const redial = {
-  fetch: ({ dispatch }) => dispatch(loadUsers())
+  fetch: ({dispatch}) => dispatch(loadUsers())
 }
 
 const mapStateToProps = state => ({
@@ -38,14 +39,20 @@ export class UserListPage extends React.Component {
           }}
         />
 
-        {users.loading &&
-        <div>
-          <h2 className={css(styles.listTitle)}>Loading....</h2>
-        </div>}
-        {!users.loading && users.users &&
-        users.users.map((user, i) => {
-          return (<UserListItem key={user.user_id} user={user}/>)
-        })}
+        {
+          users.loading &&
+          <div className={css(styles.loadingContainer)}>
+            <h2 className={css(styles.listTitle)}>Loading....</h2>
+            <CircularProgress size={90} thickness={5}/>
+          </div>
+        }
+
+        {
+          !users.loading && users.users &&
+          users.users.map((user, i) => {
+            return (<UserListItem key={user.user_id} user={user}/>)
+          })
+        }
       </div>
     )
   }

@@ -8,6 +8,7 @@ import {StyleSheet, css} from "aphrodite";
 import Helmet from "react-helmet";
 import {fusionWorkouts} from "../reducer";
 import RaisedButton from "material-ui/RaisedButton";
+import CircularProgress from "material-ui/CircularProgress";
 import {styles} from "../../../style";
 
 const redial = {
@@ -38,14 +39,20 @@ export class WorkoutListPage extends React.Component {
           }}
         />
 
-        {workouts.loading &&
-        <div>
-          <h2 className={css(styles.listTitle)}>Loading....</h2>
-        </div>}
-        {!workouts.loading && workouts.workouts &&
-        workouts.workouts.map((workout, i) => {
-          return (<WorkoutListItem key={workout.id} workout={workout}/>);
-        })}
+        {
+          workouts.loading &&
+          <div className={css(styles.loadingContainer)}>
+            <h2 className={css(styles.listTitle)}>Loading....</h2>
+            <CircularProgress size={90} thickness={5}/>
+          </div>
+        }
+
+        {
+          !workouts.loading && workouts.workouts &&
+          workouts.workouts.map((workout, i) => {
+            return (<WorkoutListItem key={workout.id} workout={workout}/>);
+          })
+        }
       </div>
     )
   }
