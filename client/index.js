@@ -29,13 +29,13 @@ const render = () => {
 
   // Pull child routes using match. Adjust Router for vanilla webpack HMR,
   // in development using a new key every time there is an edit.
-  match({ routes, location }, () => {
+  match({ history, routes }, (error, redirectLocation, renderProps) => {
     // Render app with Redux and router context to container element.
     // We need to have a random in development because of `match`'s dependency on
     // `routes.` Normally, we would want just one file from which we require `routes` from.
     ReactDOM.render(
       <Provider store={store}>
-        <Router routes={routes} history={browserHistory} key={Math.random()} />
+        <Router {...renderProps} key={Math.random()} />
       </Provider>,
       container
     )
