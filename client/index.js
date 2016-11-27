@@ -35,7 +35,7 @@ const render = () => {
     // `routes.` Normally, we would want just one file from which we require `routes` from.
     ReactDOM.render(
       <Provider store={store}>
-        <Router {...renderProps} key={Math.random()} />
+        <Router routes={routes} history={browserHistory} key={Math.random()} />
       </Provider>,
       container
     )
