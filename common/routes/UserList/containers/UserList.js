@@ -18,29 +18,38 @@ const mapStateToProps = state => ({
   users: fusionUsers(state)
 })
 
-const UserListPage = ({ users }) => (
-  <div className={css(styles.list)}>
-    <Helmet title='Users' />
-    <RaisedButton
-      label='Create User'
-      className={css(localStyles.createButton)}
-      primary={true}
-      onTouchTap={() => {
-        console.log('going to create new user page')
-        browserHistory.push('/users/new-user')
-      }}
-    />
+export class UserListPage extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+  }
 
-    {users.loading &&
-      <div>
-        <h2 className={css(styles.listTitle)}>Loading....</h2>
-      </div>}
-    {!users.loading && users.users &&
-      users.users.map((user, i) => {
-        return (<UserListItem key={user.user_id} user={user} />)
-      })}
-  </div>
-)
+  render() {
+    const {users} = this.props
+    return (
+      <div className={css(styles.list)}>
+        <Helmet title='Users'/>
+        <RaisedButton
+          label='Create User'
+          className={css(localStyles.createButton)}
+          primary={true}
+          onTouchTap={() => {
+            console.log('going to create new user page')
+            browserHistory.push('/users/new-user')
+          }}
+        />
+
+        {users.loading &&
+        <div>
+          <h2 className={css(styles.listTitle)}>Loading....</h2>
+        </div>}
+        {!users.loading && users.users &&
+        users.users.map((user, i) => {
+          return (<UserListItem key={user.user_id} user={user}/>)
+        })}
+      </div>
+    )
+  }
+}
 
 UserListPage.PropTypes = {
   users: PropTypes.array.isRequired
