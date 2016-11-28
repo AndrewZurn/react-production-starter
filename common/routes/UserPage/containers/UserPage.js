@@ -10,6 +10,7 @@ import Checkbox from 'material-ui/Checkbox'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import {browserHistory} from 'react-router'
+import {styles} from '../../../style'
 
 const redial = {
   fetch: ({dispatch, params: {slug}}) => {
@@ -137,16 +138,16 @@ export class UserPage extends React.Component {
           <Helmet title={title} />
           {loading &&
           <div>
-            <h2 className={css(styles.loading)}>Loading....</h2>
+            <h2 className={css(styles.pageLoading)}>Loading....</h2>
           </div>}
           {!loading &&
           <div>
-            <h2 className={css(styles.listItemTitle)}>{title}</h2>
+            <h2 className={css(styles.pageListItemTitle)}>{title}</h2>
 
-            <div className={css(styles.errorStates)}>
+            <div className={css(styles.pageErrorContainer)}>
               {this.state.errors.map(e =>
                 <strong key={`error-${e}`}
-                  className={css(styles.errorMessage)}>{e}<br /></strong>)}
+                  className={css(styles.pageErrorMessage)}>{e}<br /></strong>)}
             </div>
 
             {blockedReminderText}
@@ -182,8 +183,8 @@ export class UserPage extends React.Component {
             {blockUserButton}
             <RaisedButton
               label='Cancel'
-              className={css(styles.createButton)}
-              primary={true}
+              className={css(localStyles.createButton)}
+              secondary={true}
               onTouchTap={() => {
                 dispatch(resetState())
                 browserHistory.push('/users')
@@ -191,7 +192,7 @@ export class UserPage extends React.Component {
             />
             <RaisedButton
               label={saveUserLabel}
-              className={css(styles.createButton)}
+              className={css(localStyles.createButton)}
               primary={true}
               onTouchTap={() => {
                 console.log('validating create user inputs')
@@ -224,37 +225,13 @@ UserPage.propTypes = {
   error: PropTypes.object
 }
 
-const styles = StyleSheet.create({
-  listItemTitle: {
-    fontSize: 28,
-    margin: '0 auto',
-    color: '#000'
-  },
-  loading: {
-    fontSize: 28,
-    margin: '0 auto 1.5rem',
-    color: '#b7b7b7'
-  },
+const localStyles = StyleSheet.create({
   createButton: {
     borderWidth: 1,
     position: 'relative',
     marginTop: 15,
     marginRight: 15,
     left: 435
-  },
-  errorMessage: {
-    fontSize: 16,
-    margin: '6 0',
-    color: '#e60000'
-  },
-  errorStates: {
-    marginTop: 15
-  },
-  warning: {
-    margin: '10 0',
-    padding: 12,
-    color: '#9F6000',
-    backgroundColor: '#FEEFB3'
   }
 })
 

@@ -42,5 +42,29 @@ export const styles = StyleSheet.create({
   },
   loadingContainer: {
     textAlign: 'center'
+  },
+  pageErrorMessage: {
+    fontSize: 16,
+    margin: '6 0',
+    color: '#e60000'
+  },
+  pageErrorContainer: {
+    marginTop: 15
+  },
+  pageLoading: {
+    fontSize: 28,
+    margin: '0 auto 1.5rem',
+    color: '#b7b7b7'
+  },
+  pageListItemTitle: {
+    fontSize: 28,
+    margin: '0 auto',
+    color: '#000'
+  },
+  warning: {
+    margin: '10 0',
+    padding: 12,
+    color: '#9F6000',
+    backgroundColor: '#FEEFB3'
   }
 })

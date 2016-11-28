@@ -14,7 +14,7 @@ export default function createRoutes (store) {
           require('./UserList').default(store),
           require('./UserPage').default(store),
           require('./WorkoutList').default(store),
-          // require('./WorkoutPage').default(store),
+          require('./WorkoutPage').default(store),
           // require('./ScheduledWorkouts').default(store),
           require('./NotFound').default
         ])
