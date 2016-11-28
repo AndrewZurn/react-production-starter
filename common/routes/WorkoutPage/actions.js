@@ -37,7 +37,7 @@ export function createWorkout (workout, onSuccess) {
 export function updateWorkout (workout, id, onSuccess) {
   return (dispatch, getState, { axios }) => {
     dispatch({ type: constants.UPDATE_WORKOUT_REQUEST })
-    return axios.patch(`${constants.FusionApiUrl}/workouts/${id}`, user, {headers: headers})
+    return axios.put(`${constants.FusionApiUrl}/workouts/${id}`, workout, {headers: headers})
       .then(res => {
         dispatch({type: constants.UPDATE_WORKOUT_SUCCESS, payload: res.data})
       })

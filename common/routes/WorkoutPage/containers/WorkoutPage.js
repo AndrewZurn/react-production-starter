@@ -77,16 +77,22 @@ export class WorkoutPage extends React.Component {
       exercises: this.state.exercises.map(ex => {
         let exercise = {name: ex.name, amount: ex.amount};
 
-        if (ex.description.length > 0) exercise.push({description: ex.description})
-        if (ex.input.length > 0) exercise.push({input: ex.input})
+        if (ex.description && ex.description.length > 0) exercise.description = ex.description
+        if (ex.input && ex.input.length > 0) exercise.input = ex.input
         return exercise;
       })
     };
 
-    if (this.state.instructions.length > 0) workout.push({instructions: this.state.instructions})
-    if (this.state.input.length > 0) workout.push({input: this.state.input})
+    if (this.state.instructions.length > 0) workout.instructions = this.state.instructions
+    if (this.state.input.length > 0) workout.input = this.state.input
+    if (this.state.duration.length > 0) workout.duration = this.state.duration
 
     return workout;
+  }
+
+  _resetAndReturnToWorkoutsList(dispatch) {
+    dispatch(resetState())
+    browserHistory.push('/workouts')
   }
 
   render() {
@@ -114,24 +120,36 @@ export class WorkoutPage extends React.Component {
             <TextField key={`exercise_name_${randomId}`}
                        hintText="Exercise Name*"
                        defaultValue={exercise && exercise.name ? exercise.name : ''}
+                       onTouchTap={() => {
+
+                       }}
                        className={css(localStyles.exerciseField)}
                        underlineShow={false}/>
             <Divider key={`exercise_divider_1_${randomId}`}/>
             <TextField key={`exercise_description_${randomId}`}
                        hintText="Exercise Description"
                        defaultValue={exercise && exercise.description ? exercise.description : ''}
+                       onTouchTap={() => {
+
+                       }}
                        className={css(localStyles.exerciseField)}
                        underlineShow={false}/>
             <Divider key={`exercise_divider_2_${randomId}`}/>
             <TextField key={`exercise_amount_${randomId}`}
                        hintText="Exercise Amount*"
                        defaultValue={exercise && exercise.amount ? exercise.amount : ''}
+                       onTouchTap={() => {
+
+                       }}
                        className={css(localStyles.exerciseField)}
                        underlineShow={false}/>
             <Divider key={`exercise_divider_3_${randomId}`}/>
             <TextField key={`exercise_input_${randomId}`}
                        hintText="Exercise Input"
                        defaultValue={exercise && exercise.input ? exercise.input : ''}
+                       onTouchTap={() => {
+
+                       }}
                        className={css(localStyles.exerciseField)}
                        underlineShow={false}/>
             <Divider key={`exercise_divider_4_${randomId}`}/>
@@ -256,8 +274,7 @@ export class WorkoutPage extends React.Component {
               className={css(localStyles.createButton)}
               secondary={true}
               onTouchTap={() => {
-                dispatch(resetState())
-                browserHistory.push('/workouts')
+                this._resetAndReturnToWorkoutsList(dispatch)
               }}
             />
             <RaisedButton
@@ -267,14 +284,13 @@ export class WorkoutPage extends React.Component {
               onTouchTap={() => {
                 console.log('validating create workout inputs')
                 if (!this._validateForm()) {
-                  console.log('saving new workout')
-                  console.log(`new workout - name: ${this.state.workoutName} type: ${this.state.workoutType} ` +
-                    `instructions: ${this.state.instructions} input: ${this.state.input} duration: ${this.state.duration}`)
-                  if (currentWorkout) { // editing a current workout
-                    dispatch(updateWorkout(this._getWorkoutToSave(), currentWorkout.id, () => browserHistory.push('/workouts')))
-                  } else { // new workout
-                    dispatch(createWorkout(this._getWorkoutToSave(), () => browserHistory.push('/workouts')))
-                  }
+                  let workoutToSave = this._getWorkoutToSave()
+                  console.log(`saving new workout - ${JSON.stringify(workoutToSave)}`)
+                  {/*if (currentWorkout) { // editing a current workout*/}
+                    {/*dispatch(updateWorkout(this._getWorkoutToSave(), currentWorkout.id, () => browserHistory.push('/workouts')))*/}
+                  {/*} else { // new workout*/}
+                    {/*dispatch(createWorkout(this._getWorkoutToSave(), () => browserHistory.push('/workouts')))*/}
+                  {/*}*/}
                 }
               }}
             />

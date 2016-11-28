@@ -99,6 +99,11 @@ export class UserPage extends React.Component {
     return user
   }
 
+  _resetAndReturnToUsersList(dispatch) {
+    dispatch(resetState())
+    browserHistory.push('/users')
+  }
+
   render () {
     const {currentUser, _, loading, error, dispatch} = this.props
 
@@ -186,24 +191,27 @@ export class UserPage extends React.Component {
               className={css(localStyles.createButton)}
               secondary={true}
               onTouchTap={() => {
-                dispatch(resetState())
-                browserHistory.push('/users')
+                this._resetAndReturnToUsersList(dispatch)
               }}
             />
             <RaisedButton
               label={saveUserLabel}
               className={css(localStyles.createButton)}
               primary={true}
-              onTouchTap={() => {
+              onTouchTap={ () => {
                 console.log('validating create user inputs')
                 if (!this._validateForm()) {
                   console.log('saving new user')
                   console.log(`new user - first: ${this.state.firstName} last: ${this.state.lastName} ` +
                     `email: ${this.state.email} programLevel: ${this.state.programLevel}`)
                   if (currentUser) { // editing a current user
-                    dispatch(updateUser(this._getUserToUpdate(currentUser), currentUser.user_id, () => browserHistory.push('/users')))
+                    dispatch(updateUser(this._getUserToUpdate(currentUser), currentUser.user_id, () => {
+                      this._resetAndReturnToUsersList(dispatch)
+                    }))
                   } else { // new user
-                    dispatch(createUser(this._getUserToSave(), () => browserHistory.push('/users')))
+                    dispatch(createUser(this._getUserToSave(), () => {
+                      this._resetAndReturnToUsersList(dispatch)
+                    }))
                   }
                 }
               }}
